@@ -10,7 +10,7 @@ for contMapIndex, contMap in pairs(C_Map.GetMapChildrenInfo(C_Map.GetMapInfo(C_M
 		for zoneMapIndex, zoneMap in pairs(cont_children) do
 			if zoneMap.mapType == 3 then
 				table.insert(znames,zoneMap.name)
-				zonei[zoneMap.name], zonec[zoneMap.name] = zoneMapIndex, contMapIndex
+				zonei[zoneMap.name], zonec[zoneMap.name] = zoneMap.mapID, contMap.mapID
 			end
 		end
 		zonenames[contMapIndex] = znames
@@ -36,7 +36,9 @@ local function MapPoint(zone, x, y, desc, c, z)
 	end
 	zone = zone or zonenames[zc][zi]
 
-	if TomTom then table.insert(cache, TomTom:AddZWaypoint(zc, zi, x, y, desc, false))
+	if TomTom then table.insert(cache, TomTom:AddWaypoint(zi, x/100, y/100, {
+		title = desc or L["TomTom waypoint"],
+    }))
 	elseif Cartographer_Waypoints then
 		local pt = NotePoint:new(zone, x/100, y/100, desc)
 		Cartographer_Waypoints:AddWaypoint(pt)
