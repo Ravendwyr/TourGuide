@@ -99,7 +99,7 @@ function TourGuide:Enable()
 	for _,event in pairs(self.TrackEvents) do self:RegisterEvent(event) end
 	self:RegisterEvent("QUEST_COMPLETE", "UpdateStatusFrame")
 	self:RegisterEvent("QUEST_DETAIL", "UpdateStatusFrame")
-	self:RegisterEvent("PARTY_MEMBERS_CHANGED", "CommCurrentObjective")
+	--self:RegisterEvent("PARTY_MEMBERS_CHANGED", "CommCurrentObjective")
 	self.TrackEvents = nil
 	self:QuestID_QUEST_LOG_UPDATE()
 	GetQuestsCompleted(TourGuide.turnedinquests)
@@ -148,11 +148,18 @@ end
 
 
 function TourGuide:GetQuestLogIndexByQID(qid)
-	for i=1,GetNumQuestLogEntries() do
+	local numEntries, numQuests = GetNumQuestLogEntries();
+	for i=1, numEntries do
+		_, _, _, _, _, _, _, thisqid = GetQuestLogTitle(i);
+		--local link = GetQuestLink(i)
+		--local thisqid = link and self.QIDmemo[link]
+		if thisqid and qid == thisqid then return i end
+	end
+--[[ 	for i=1,GetNumQuestLogEntries() do
 		local link = GetQuestLink(i)
 		local thisqid = link and self.QIDmemo[link]
 		if thisqid and qid == thisqid then return i end
-	end
+	end ]]
 end
 
 

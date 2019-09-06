@@ -26,13 +26,16 @@ end
 
 
 function TourGuide:QuestID_QUEST_LOG_UPDATE()
+	local numEntries, numQuests = GetNumQuestLogEntries();
+
 	currentquests, oldquests = oldquests, currentquests
 	for i in pairs(currentquests) do currentquests[i] = nil end
 
-	for i=1,GetNumQuestLogEntries() do
-		local link = GetQuestLink(i)
-		local qid = link and qids[link]
-		if qid then
+	for i=1, numEntries do
+		_, _, _, _, _, _, _, qid = GetQuestLogTitle(i);
+		--local link = GetQuestLink(i)
+		--local qid = link and qids[link]
+		if qid > 0 then
 			currentquests[qid] = true
 			titles[qid] = GetQuestLogTitle(i)
 		end

@@ -2,12 +2,26 @@
 local L = TourGuide.Locale
 
 local zonei, zonec, zonenames = {}, {}, {}
-for ci,c in pairs{GetMapContinents()} do
+
+for contMapIndex, contMap in pairs(C_Map.GetMapChildrenInfo(C_Map.GetMapInfo(C_Map.GetFallbackWorldMapID()).mapID)) do
+	if contMap.mapType == 2 then
+		local cont_children = C_Map.GetMapChildrenInfo(contMap.mapID)
+		local znames = {}
+		for zoneMapIndex, zoneMap in pairs(cont_children) do
+			if zoneMap.mapType == 3 then
+				table.insert(znames,zoneMap.name)
+				zonei[zoneMap.name], zonec[zoneMap.name] = zoneMapIndex, contMapIndex
+			end
+		end
+		zonenames[contMapIndex] = znames
+	end
+end
+--[[ for ci,c in pairs{GetMapContinents()} do
 	zonenames[ci] = {GetMapZones(ci)}
 	for zi,z in pairs(zonenames[ci]) do
 		zonei[z], zonec[z] = zi, ci
 	end
-end
+end ]]
 
 
 local cache = {}
@@ -29,7 +43,7 @@ local function MapPoint(zone, x, y, desc, c, z)
 		table.insert(cache, pt.WaypointID)
 	end
 	
-	SendAddonMessage("TGuideWP", string.join(" ", zc, zi, x, y, desc), "PARTY")
+	C_ChatInfo.SendAddonMessage("TGuideWP", string.join(" ", zc, zi, x, y, desc), "PARTY")
 end
 
 

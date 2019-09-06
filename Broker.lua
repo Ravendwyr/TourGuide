@@ -74,7 +74,7 @@ function TourGuide:UpdateStatusFrame()
 		end
 	end
 	QuestLog_Update()
-	WatchFrame_Update()
+	QuestWatch_Update()
 
 	if not nextstep and self:LoadNextGuide() then return self:UpdateStatusFrame() end
 	if not nextstep then return end
@@ -113,8 +113,8 @@ end
 function TourGuide:CommCurrentObjective()
 	local action, quest, fullquest = self:GetObjectiveInfo()
 	local qid = self:GetObjectiveTag("QID")
-	SendAddonMessage("TGuide", action.." "..(quest or "???"), "PARTY")
-	if qid then SendAddonMessage("TGuideQID", qid, "PARTY") end
+	C_ChatInfo.SendAddonMessage("TGuide", action.." "..(quest or "???"), "PARTY")
+	if qid then C_ChatInfo.SendAddonMessage("TGuideQID", qid, "PARTY") end
 end
 
 
