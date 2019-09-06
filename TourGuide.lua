@@ -104,12 +104,14 @@ function TourGuide:Enable()
 	self:QuestID_QUEST_LOG_UPDATE()
 	GetQuestsCompleted(TourGuide.turnedinquests)
 	self:UpdateStatusFrame()
-	self:RegisterEvent("QUEST_QUERY_COMPLETE")
-	if IsLoggedIn() then QueryQuestsCompleted()
+	if IsLoggedIn() then
+		GetQuestsCompleted(TourGuide.turnedinquests)
+		self:UpdateStatusFrame()
 	else
 		self:RegisterEvent("PLAYER_LOGIN")
 		function self:PLAYER_LOGIN()
-			QueryQuestsCompleted()
+			GetQuestsCompleted(TourGuide.turnedinquests)
+			self:UpdateStatusFrame()
 			self:UnregisterEvent("PLAYER_LOGIN")
 			self.PLAYER_LOGIN = nil
 		end

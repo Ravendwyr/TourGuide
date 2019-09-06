@@ -9,20 +9,14 @@ local hadquest
 
 local turnedinquests, currentquests, oldquests, titles, firstscan, abandoning = {}, {}, {}, {}, true
 TourGuide.turnedinquests = turnedinquests
-local qids = setmetatable({}, {
+--[[ local qids = setmetatable({}, {
 	__index = function(t,i)
 		local v = tonumber(i:match("|Hquest:(%d+):"))
 		t[i] = v
 		return v
 	end,
 })
-TourGuide.QIDmemo = qids
-
-
-function TourGuide:QUEST_QUERY_COMPLETE()
-	GetQuestsCompleted(TourGuide.turnedinquests)
-	self:UpdateStatusFrame()
-end
+TourGuide.QIDmemo = qids ]]
 
 
 function TourGuide:QuestID_QUEST_LOG_UPDATE()
