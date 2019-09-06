@@ -69,9 +69,9 @@ function TourGuide:ParseAndMapCoords(action, quest, zone, note, qid, logi)
 	end
 
 	if logi and (action == "COMPLETE" or action == "TURNIN") then
-		QuestMapUpdateAllQuests()
-		QuestPOIUpdateIcons()
-		local _, x, y, obj = QuestPOIGetIconInfo(qid)
+		--QuestMapUpdateAllQuests()
+		--QuestPOIUpdateIcons()
+		local _, x, y, obj-- = QuestPOIGetIconInfo(qid)
 		if x and y then table.insert(temp, y*100) table.insert(temp, x*100)
 		else return f:Show() end
 	end
