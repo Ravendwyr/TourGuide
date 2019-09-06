@@ -63,8 +63,9 @@ end
 local function ShowTooltip2(f)
 	if not f.qid then return end
 
-	GameTooltip:SetOwner(f, "ANCHOR_RIGHT")
-	GameTooltip:SetHyperlink("quest:"..f.qid)
+	-- Quest Hyperlinks do not exist in Classic
+	--GameTooltip:SetOwner(f, "ANCHOR_RIGHT")
+	--GameTooltip:SetHyperlink("quest:"..f.qid)
 end
 
 
